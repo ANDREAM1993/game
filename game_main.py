@@ -83,8 +83,7 @@ class Game:
                      self.MAX_HEAL_LEVEL,           # верхняя граница исцеления игрока;
                      self.LOW_DAMAGE_PROBABILITY,   # базовая вероятность выбора умеренного урона;
                      self.HIGH_DAMAGE_PROBABILITY,  # базовая вероятность выбора большого урона;
-                     self.CURRENT_HEAL_PROBABILITY, # базовая вероятность выбора исцеления;
-                     self.UPGRADE_HEAL_PROBABILITY) # увеличение вероятности на исцеление игрока;
+                     self.CURRENT_HEAL_PROBABILITY) # базовая вероятность выбора исцеления;
         # провека наличия всех констант;
         if None not in constants:
             # проверка валидности формата целочисленных констант;
@@ -283,9 +282,9 @@ class Game:
             if player.NAME == self.PLAYER_2.NAME:
                 if player.HEALTH < self.HEALTH_LIMIT:
                     # переоценка шансов на выбор определенного хода если уровень здоровья игрока упал ниже допустимого;
-                    step_weights[0] -= 0.9 * self.UPGRADE_HEAL_PROBABILITY
-                    step_weights[1] -= 0.1 * self.UPGRADE_HEAL_PROBABILITY
-                    step_weights[2] += self.UPGRADE_HEAL_PROBABILITY
+                    step_weights[0] = self.CURRENT_HEAL_PROBABILITY
+                    step_weights[1] = self.HIGH_DAMAGE_PROBABILITY
+                    step_weights[2] = self.LOW_DAMAGE_PROBABILITY
             # генерация случайного хода;
             return choices((self.low_damage(), self.high_damage(), self.heal()), step_weights)[0]
         input("Game->auto_step: Игрок которому выпал ход не задан.")
@@ -395,8 +394,7 @@ if __name__ == "__main__":
 * MAX_HEAL_LEVEL - верхняя граница исцеления игрока;
 * LOW_DAMAGE_PROBABILITY - базовая вероятность выбора умеренного урона;
 * HIGH_DAMAGE_PROBABILITY - базовая вероятность выбора большого урона;
-* CURRENT_HEAL_PROBABILITY - базовая вероятность выбора исцеления;
-* UPGRADE_HEAL_PROBABILITY) - увеличение вероятности на исцеление игрока.
+* CURRENT_HEAL_PROBABILITY - базовая вероятность выбора исцеления.
 ---------------------------------------------------------------------------------------------------------------------
 2) Методы:
 ---------------------------------------------------------------------------------------------------------------------
