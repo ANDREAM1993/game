@@ -6,7 +6,7 @@ from random import choices
 from time import sleep
 
 # Класс реализующий игровую механику;
-class Games:
+class Game:
     # путь к файлу с конфигурациями игры;
     RESOURCES_PATH = "{}/configs.dat".format(getcwd())
     # путь к файлу с справочной информацией;
