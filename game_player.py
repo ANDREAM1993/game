@@ -3,8 +3,8 @@ class Player:
 Класс для создания игроков и работы с игроками:
 -------------------------------------------------------------------------------------------------------
 1) Поля:
-   * NAME - имя игрока;
-   * HEALTH - уровень здоровья игрока.
+   * name - имя игрока;
+   * health - уровень здоровья игрока.
 -------------------------------------------------------------------------------------------------------
 2) Методы:
 2.1) __init__(name, health) - создание объекта Player.
@@ -32,12 +32,13 @@ class Player:
      * medicine(int) - количество очков здоровья (None по умолчанию);
      * max_health_level(int) - максимальный уровень здоровья игрока (None по умолчанию).
      Выходные данные: нет.
--------------------------------------------------------------------------------------------------------"""
-    def __init__(self, name = None, health = None):
+-------------------------------------------------------------------------------------------------------
+"""
+    def __init__(self, name=None, health=None):
         # имя и уровень здоровья объязательны для задания;
         if None not in (name, health):
-            self.NAME = name     # установка имени игрока;
-            self.HEALTH = health # установка начального уровня здоровья игрока;
+            self.name = name     # установка имени игрока;
+            self.health = health # установка начального уровня здоровья игрока;
         else:
             input("Player->__init__: Имя или уровень здоровья нового игрока не заданы.")
 
@@ -45,7 +46,7 @@ class Player:
         # граничные уровни для размера имя и уровеня здоровья игрока объязательны для задания;
         if None not in (name_size, health_level):
             # проверка наличия поля с именем игрока;
-            if "NAME" in self.__dict__:
+            if "name" in self.__dict__:
                 # проверка формата упаковки граничных размеров имени игрока;
                 if type(name_size) == dict:
                     # проверка наличия нижней и верхней границы размера имени игрока;
@@ -55,11 +56,11 @@ class Player:
                             # проверка валидности граничных размеров имени игрока;
                             if name_size["min"] > 0 and name_size["max"] > name_size["min"]:
                                 # проверка валидности формата имени игрока;
-                                if type(self.NAME) == str:
+                                if type(self.name) == str:
                                     # проверка валидности размера имени игрока;
-                                    if name_size["min"] <= len(self.NAME) <= name_size["max"]:
+                                    if name_size["min"] <= len(self.name) <= name_size["max"]:
                                         # проверка наличия поля с уровнем здоровья игрока;
-                                        if "HEALTH" in self.__dict__:
+                                        if "health" in self.__dict__:
                                             # проверка валидности формата упаковки граничных уровней здоровья игрока;
                                             if type(health_level) == dict:
                                                 # проверка наличия нижней и верхней границы уровня здоровья игрока;
@@ -69,24 +70,24 @@ class Player:
                                                         # проверка валидности граничных уровней здоровья игрока;
                                                         if 0 <= health_level["min"] < health_level["max"]:
                                                             # проверка валидности формата уровня здоровья игрока;
-                                                            if type(self.HEALTH) == int:
+                                                            if type(self.health) == int:
                                                                 # проверка валидности уровня здоровья игрока;
-                                                                if health_level["min"] <= self.HEALTH <= health_level["max"]:
+                                                                if health_level["min"] <= self.health <= health_level["max"]:
                                                                     return True # данные игрока валидны;
                                                                 else:
-                                                                    input("Player->validate: Невалидный уровень здоровья у \"{}\".".format(self.NAME))
+                                                                    input("Player->validate: Невалидный уровень здоровья у \"{}\".".format(self.name))
                                                             else:
-                                                                input("Player->validate: Невалидный формат уровня здоровья у \"{}\".".format(self.NAME))
+                                                                input("Player->validate: Невалидный формат уровня здоровья у \"{}\".".format(self.name))
                                                         else:
-                                                            input("Player->validate: Невалидные лимиты уровней здоровья у \"{}\".".format(self.NAME))
+                                                            input("Player->validate: Невалидные лимиты уровней здоровья у \"{}\".".format(self.name))
                                                     else:
-                                                        input("Player->validate: Невалидные форматы лимитов уровней здоровья у \"{}\".".format(self.NAME))
+                                                        input("Player->validate: Невалидные форматы лимитов уровней здоровья у \"{}\".".format(self.name))
                                                 else:
-                                                    input("Player->validate: Не все лимиты уровней здоровья у \"{}\" заданы.".format(self.NAME))
+                                                    input("Player->validate: Не все лимиты уровней здоровья у \"{}\" заданы.".format(self.name))
                                             else:
-                                                input("Player->validate: Невалидный формат уровней здоровья у \"{}\".".format(self.NAME))
+                                                input("Player->validate: Невалидный формат уровней здоровья у \"{}\".".format(self.name))
                                         else:
-                                            input("Player->validate: У \"{}\" не создан индикатор здоровья.".format(self.NAME)) 
+                                            input("Player->validate: У \"{}\" не создан индикатор здоровья.".format(self.name)) 
                                     else:
                                         input("Player->validate: Невалидный размер имени игрока.")
                                 else:
@@ -117,18 +118,18 @@ class Player:
                         # если сумма текущего уровня здоровья и урона падает ниже минимального уровня здоровья,
                         # то уровень здоровья становится минимальным (но не падает ниже допустимого), иначе из
                         # текущего уровня здоровья игрока вычитается урон;
-                        if (self.HEALTH + damage) < min_health_level:
-                            self.HEALTH = min_health_level
+                        if (self.health + damage) < min_health_level:
+                            self.health = min_health_level
                         else:
-                            self.HEALTH = self.HEALTH + damage
+                            self.health = self.health + damage
                     else:
-                        input("Player->hurt: Невалидное значение уровня урона (\"{}\", {}).".format(self.NAME, damage))
+                        input("Player->hurt: Невалидное значение уровня урона (\"{}\", {}).".format(self.name, damage))
                 else:
-                    input("Player->hurt: Невалидный формат минимального уровня здоровья (\"{}\").".format(self.NAME))
+                    input("Player->hurt: Невалидный формат минимального уровня здоровья (\"{}\").".format(self.name))
             else:
-                input("Player->hurt: Невалидный формат уровня урона (\"{}\").".format(self.NAME))
+                input("Player->hurt: Невалидный формат уровня урона (\"{}\").".format(self.name))
         else:
-            input("Player->hurt: Уровень урона и минимальный уровень здоровья не заданы (\"{}\").".format(self.NAME))
+            input("Player->hurt: Уровень урона и минимальный уровень здоровья не заданы (\"{}\").".format(self.name))
     
     def heal(self, medicine = None, max_health_level = None):
         # уровень исцеления и уровень здоровья игрока объязательны для задания;
@@ -142,15 +143,15 @@ class Player:
                         # если сумма текущего уровня здоровья и исцеления становится высше максимального уровня здоровья,
                         # то уровень здоровья становится максимальным (но не превышает допустимого), иначе к
                         # текущему уровню здоровья игрока добавляются очки исцеления;
-                        if (self.HEALTH + medicine) > max_health_level:
-                            self.HEALTH = max_health_level
+                        if (self.health + medicine) > max_health_level:
+                            self.health = max_health_level
                         else:
-                            self.HEALTH = self.HEALTH + medicine
+                            self.health = self.health + medicine
                     else:
-                        input("Player->heal: Невалидное значение уровня исцеления (\"{}\", {}).".format(self.NAME, medicine))
+                        input("Player->heal: Невалидное значение уровня исцеления (\"{}\", {}).".format(self.name, medicine))
                 else:
-                    input("Player->heal: Невалидный формат максимального уровня здоровья (\"{}\").".format(self.NAME))
+                    input("Player->heal: Невалидный формат максимального уровня здоровья (\"{}\").".format(self.name))
             else:
-                input("Player->heal: Невалидный формат уровня исцеления (\"{}\").".format(self.NAME))
+                input("Player->heal: Невалидный формат уровня исцеления (\"{}\").".format(self.name))
         else:
-            input("Player->heal: Уровень исцеления и максимальный уровень здоровья не заданы (\"{}\").".format(self.NAME))
+            input("Player->heal: Уровень исцеления и максимальный уровень здоровья не заданы (\"{}\").".format(self.name))
